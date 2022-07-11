@@ -14,38 +14,10 @@ const rl = readline.createInterface({
 });
 
 // question name
-const questionsName = (ask) => {
+const questions = (ask) => {
   return new Promise((resolve,reject) =>{
     rl.question(ask, (answer) => {
       resolve(answer);
-    })
-  })
-}
-
-// question and validate phone number
-const questionsPhone = (ask) => {
-  return new Promise((resolve,reject) => {
-    rl.question(ask, (pnumber) => {
-      if (!validator.isMobilePhone(pnumber, "id-ID")) {
-        console.log('phone number not valid!');
-        resolve(questionsPhone(ask));
-      }else{
-        resolve(pnumber);
-      }
-    })
-  })
-}
-
-// question and validate email
-const questionsEmail = (ask) => {
-  return new Promise((resolve,reject) => {
-    rl.question(ask, (email) => {
-      if (!validator.isEmail(email)) {
-        console.log('email not valid!');
-        resolve(questionsEmail(ask));
-      }else{
-        resolve(email);
-      }
     })
   })
 }
@@ -64,6 +36,20 @@ function dataPathValidator(dataPath){
     }
 }
 
+// function for validate email
+function validateEmail(email){
+  if (!validator.isEmail(email)) {
+    return true;
+  }
+}
+
+// function for validate mobile phone number
+function validateMobile(mobile){
+  if (!validator.isMobilePhone(mobile, "id-ID")) {
+    return true;
+  }
+}
+
 // save file contact to JSON
 const saveFileContact = (contact) =>{
   const file = fs.readFileSync('data/contacts.json','utf8');
@@ -73,4 +59,4 @@ const saveFileContact = (contact) =>{
 
 }
 
-module.exports = {questionsName,questionsPhone,questionsEmail,dirPathValidator,dataPathValidator,saveFileContact,rl};
+module.exports = {questions,dirPathValidator,dataPathValidator,saveFileContact,rl,validateEmail,validateMobile};
