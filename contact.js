@@ -13,7 +13,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-// question name
+// question name, mobile, email
 const questions = (ask) => {
   return new Promise((resolve,reject) =>{
     rl.question(ask, (answer) => {
